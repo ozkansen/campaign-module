@@ -1,7 +1,7 @@
 package campaign
 
 import (
-	"time"
+	"github.com/ozkansen/campaign-module/pkg/time"
 )
 
 // TimeNow for Campaign time manipulation

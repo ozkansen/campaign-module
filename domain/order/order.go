@@ -1,7 +1,7 @@
 package order
 
 import (
-	"time"
+	"github.com/ozkansen/campaign-module/pkg/time"
 )
 
 // TimeNow for Order time manipulation
