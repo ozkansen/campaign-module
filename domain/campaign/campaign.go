@@ -24,8 +24,8 @@ type Campaign struct {
 func NewCampaign(name, productCode string, duration, priceManipulationLimit, targetSalesCount int) (*Campaign, error) {
 	if name == "" ||
 		productCode == "" ||
-		duration < 0 ||
-		priceManipulationLimit < 0 ||
+		duration <= 0 ||
+		priceManipulationLimit <= 0 ||
 		priceManipulationLimit >= 100 ||
 		targetSalesCount <= 0 {
 		return nil, ErrInvalidValue
