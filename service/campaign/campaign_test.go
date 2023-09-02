@@ -9,9 +9,11 @@ import (
 )
 
 type campaignRepositoryStubs struct {
-	createRetErr error
-	getRetVal    *campaign.Campaign
-	getRetErr    error
+	createRetErr             error
+	getRetVal                *campaign.Campaign
+	getRetErr                error
+	getFromProductCodeRetVal *campaign.Campaign
+	getFromProductCodeRetErr error
 }
 
 func (cr *campaignRepositoryStubs) Create(camp *campaign.Campaign) error {
@@ -19,6 +21,10 @@ func (cr *campaignRepositoryStubs) Create(camp *campaign.Campaign) error {
 }
 func (cr *campaignRepositoryStubs) Get(name string) (*campaign.Campaign, error) {
 	return cr.getRetVal, cr.getRetErr
+}
+
+func (cr *campaignRepositoryStubs) GetFromProductCode(productCode string) (*campaign.Campaign, error) {
+	return cr.getFromProductCodeRetVal, cr.getFromProductCodeRetErr
 }
 
 func newCampaignFuncStub(c *campaign.Campaign, err error) newCampaign {
