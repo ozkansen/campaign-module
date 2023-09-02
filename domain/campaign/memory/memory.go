@@ -46,3 +46,15 @@ func (m *MemoryCampaignRepository) Get(name string) (*campaign.Campaign, error) 
 	}
 	return camp, nil
 }
+
+func (m *MemoryCampaignRepository) GetFromProductCode(productCode string) (*campaign.Campaign, error) {
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
+	for name := range m.campaigns {
+		camp := m.campaigns[name]
+		if camp.ProductCode == productCode {
+			return camp, nil
+		}
+	}
+	return nil, campaign.ErrCampaignNotFound
+}

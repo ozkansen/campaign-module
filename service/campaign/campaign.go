@@ -55,3 +55,7 @@ func (cs *CampaignService) Create(name, productCode string, duration, priceManip
 func (cs *CampaignService) Get(name string) (*campaign.Campaign, error) {
 	return cs.campaigns.Get(name)
 }
+
+func (cs *CampaignService) GetFromProductCode(productCode string) (*campaign.Campaign, error) {
+	return cs.campaigns.GetFromProductCode(productCode)
+}
