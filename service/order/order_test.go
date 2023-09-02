@@ -22,7 +22,7 @@ func (or *orderRepositoryStubs) Get(productCode string) ([]*order.Order, error) 
 }
 
 func newOrderFuncStub(o *order.Order, err error) newOrder {
-	return func(productCode string, quantity int) (*order.Order, error) {
+	return func(productCode string, quantity int, price int64) (*order.Order, error) {
 		return o, err
 	}
 }
@@ -35,6 +35,7 @@ func TestOrderService_Create(t *testing.T) {
 	type args struct {
 		productCode string
 		quantity    int
+		price       int64
 	}
 	tests := []struct {
 		name    string
@@ -46,9 +47,9 @@ func TestOrderService_Create(t *testing.T) {
 			name: "create a valid order",
 			fields: fields{
 				orders:   &orderRepositoryStubs{},
-				newOrder: newOrderFuncStub(&order.Order{ProductCode: "P1", Quantity: 1}, nil),
+				newOrder: newOrderFuncStub(&order.Order{ProductCode: "P1", Quantity: 1, Price: 100}, nil),
 			},
-			args:    args{productCode: "P1", quantity: 1},
+			args:    args{productCode: "P1", quantity: 1, price: 100},
 			wantErr: false,
 		},
 		{
@@ -76,7 +77,7 @@ func TestOrderService_Create(t *testing.T) {
 				orders:   tt.fields.orders,
 				newOrder: tt.fields.newOrder,
 			}
-			if err := os.Create(tt.args.productCode, tt.args.quantity); (err != nil) != tt.wantErr {
+			if err := os.Create(tt.args.productCode, tt.args.quantity, tt.args.price); (err != nil) != tt.wantErr {
 				t.Errorf("Create() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

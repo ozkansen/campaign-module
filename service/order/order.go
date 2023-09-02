@@ -7,7 +7,7 @@ import (
 
 type (
 	Configuration func(os *OrderService) error
-	newOrder      func(productCode string, quantity int) (*order.Order, error)
+	newOrder      func(productCode string, quantity int, price int64) (*order.Order, error)
 )
 
 type OrderService struct {
@@ -40,8 +40,8 @@ func WithMemoryOrderRepository() Configuration {
 	return WithOrderRepository(or)
 }
 
-func (os *OrderService) Create(productCode string, quantity int) error {
-	ord, err := os.newOrder(productCode, quantity)
+func (os *OrderService) Create(productCode string, quantity int, price int64) error {
+	ord, err := os.newOrder(productCode, quantity, price)
 	if err != nil {
 		return err
 	}
