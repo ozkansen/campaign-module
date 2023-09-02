@@ -12,6 +12,8 @@ type (
 var (
 	Hour = time.Hour
 	Now  = time.Now
+	Date = time.Date
+	UTC  = time.UTC
 )
 
 func Set(t time.Time) {
