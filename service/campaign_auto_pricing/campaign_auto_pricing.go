@@ -106,7 +106,7 @@ func (ap *CampaignAutoPricing) CreateProduct(productCode string, price int64, st
 }
 
 func (ap *CampaignAutoPricing) CreateOrder(productCode string, quantity int) {
-	prod, err := ap.productService.Get(productCode) //todo: price dynamic, do not service
+	prod, err := ap.productService.Get(productCode)
 	if err != nil {
 		ap.writeStdErr("product service get: %v", err)
 		return
