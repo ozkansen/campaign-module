@@ -100,3 +100,74 @@ func TestMemoryCampaignRepository_Get(t *testing.T) {
 		})
 	}
 }
+
+func TestMemoryCampaignRepository_GetFromProductCode(t *testing.T) {
+	type fields struct {
+		campaigns map[string]*campaign.Campaign
+	}
+	type args struct {
+		productCode string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		want    *campaign.Campaign
+		wantErr bool
+	}{
+		{
+			name: "get valid campaign",
+			fields: fields{map[string]*campaign.Campaign{"C1": {
+				Name:        "C1",
+				ProductCode: "P1",
+			}, "C2": {
+				Name:        "C2",
+				ProductCode: "P2",
+			}}},
+			args:    args{"P1"},
+			want:    &campaign.Campaign{Name: "C1", ProductCode: "P1"},
+			wantErr: false,
+		},
+		{
+			name: "get valid campaign 2",
+			fields: fields{map[string]*campaign.Campaign{"C1": {
+				Name:        "C1",
+				ProductCode: "P1",
+			}, "C2": {
+				Name:        "C2",
+				ProductCode: "P2",
+			}}},
+			args:    args{"P2"},
+			want:    &campaign.Campaign{Name: "C2", ProductCode: "P2"},
+			wantErr: false,
+		},
+		{
+			name: "campaign not found",
+			fields: fields{map[string]*campaign.Campaign{"C1": {
+				Name:        "C1",
+				ProductCode: "P1",
+			}, "C2": {
+				Name:        "C2",
+				ProductCode: "P2",
+			}}},
+			args:    args{"P3"},
+			want:    nil,
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			m := &MemoryCampaignRepository{
+				campaigns: tt.fields.campaigns,
+			}
+			got, err := m.GetFromProductCode(tt.args.productCode)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetFromProductCode() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetFromProductCode() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
