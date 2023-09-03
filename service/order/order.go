@@ -1,6 +1,8 @@
 package order
 
 import (
+	"errors"
+
 	"github.com/ozkansen/campaign-module/domain/order"
 	"github.com/ozkansen/campaign-module/domain/order/memory"
 )
@@ -51,6 +53,9 @@ func (os *OrderService) Create(productCode string, quantity int, price int64) er
 func (os *OrderService) GetProductTotalSales(productCode string) (int, error) {
 	orders, err := os.orders.Get(productCode)
 	if err != nil {
+		if errors.Is(err, order.ErrOrdersNotAvailable) {
+			return 0, nil
+		}
 		return 0, err
 	}
 
