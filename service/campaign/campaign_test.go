@@ -19,6 +19,7 @@ type campaignRepositoryStubs struct {
 func (cr *campaignRepositoryStubs) Create(camp *campaign.Campaign) error {
 	return cr.createRetErr
 }
+
 func (cr *campaignRepositoryStubs) Get(name string) (*campaign.Campaign, error) {
 	return cr.getRetVal, cr.getRetErr
 }

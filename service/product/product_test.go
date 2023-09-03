@@ -17,6 +17,7 @@ type productRepositoryStubs struct {
 func (pr *productRepositoryStubs) Create(prod *product.Product) error {
 	return pr.createRetErr
 }
+
 func (pr *productRepositoryStubs) Get(productCode string) (*product.Product, error) {
 	return pr.getRetVal, pr.getRetErr
 }

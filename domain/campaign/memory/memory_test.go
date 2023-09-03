@@ -9,7 +9,7 @@ import (
 )
 
 func TestMemoryCampaignRepository_Create(t *testing.T) {
-	var TimeNow = func() time.Time {
+	TimeNow := func() time.Time {
 		return time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)
 	}
 	type fields struct {
@@ -32,13 +32,13 @@ func TestMemoryCampaignRepository_Create(t *testing.T) {
 		},
 		{
 			name:    "invalid campaign already exists, same product code",
-			fields:  fields{map[string]*campaign.Campaign{"C1": &campaign.Campaign{Name: "C1", ProductCode: "P1", Duration: 1, PriceManipulationLimit: 10, TargetSalesCount: 100, CreatedAt: time.Now()}}},
+			fields:  fields{map[string]*campaign.Campaign{"C1": {Name: "C1", ProductCode: "P1", Duration: 1, PriceManipulationLimit: 10, TargetSalesCount: 100, CreatedAt: time.Now()}}},
 			wantErr: true,
 			args:    args{camp: &campaign.Campaign{Name: "C2", ProductCode: "P1", Duration: 1, PriceManipulationLimit: 10, TargetSalesCount: 100, CreatedAt: TimeNow()}},
 		},
 		{
 			name:    "invalid campaign already exists, same campaign name",
-			fields:  fields{map[string]*campaign.Campaign{"C1": &campaign.Campaign{Name: "C1", ProductCode: "P1", Duration: 1, PriceManipulationLimit: 10, TargetSalesCount: 100, CreatedAt: time.Now()}}},
+			fields:  fields{map[string]*campaign.Campaign{"C1": {Name: "C1", ProductCode: "P1", Duration: 1, PriceManipulationLimit: 10, TargetSalesCount: 100, CreatedAt: time.Now()}}},
 			wantErr: true,
 			args:    args{camp: &campaign.Campaign{Name: "C1", ProductCode: "P2", Duration: 1, PriceManipulationLimit: 10, TargetSalesCount: 100, CreatedAt: TimeNow()}},
 		},

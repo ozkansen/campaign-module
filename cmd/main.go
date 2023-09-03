@@ -45,7 +45,6 @@ func getCampaignAutoPricingService() (*campaign_auto_pricing.CampaignAutoPricing
 }
 
 func main() {
-
 	ap, err := getCampaignAutoPricingService()
 	if err != nil {
 		panic(err)
@@ -69,5 +68,4 @@ func main() {
 	ap.CreateOrder("P1", 10)
 	ap.GetProductInfo("P1")
 	ap.GetCampaignInfo("C1")
-
 }

@@ -61,14 +61,14 @@ func TestMemoryProductRepository_Get(t *testing.T) {
 	}{
 		{
 			name:    "get a valid product",
-			fields:  fields{products: map[string]*product.Product{"P1": &product.Product{ProductCode: "P1"}, "P2": {ProductCode: "P2"}}},
+			fields:  fields{products: map[string]*product.Product{"P1": {ProductCode: "P1"}, "P2": {ProductCode: "P2"}}},
 			args:    args{productCode: "P1"},
 			want:    &product.Product{ProductCode: "P1"},
 			wantErr: false,
 		},
 		{
 			name:    "product not found",
-			fields:  fields{products: map[string]*product.Product{"P1": &product.Product{ProductCode: "P1"}, "P2": {ProductCode: "P2"}}},
+			fields:  fields{products: map[string]*product.Product{"P1": {ProductCode: "P1"}, "P2": {ProductCode: "P2"}}},
 			args:    args{productCode: "P3"},
 			want:    nil,
 			wantErr: true,
