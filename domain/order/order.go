@@ -18,7 +18,7 @@ func NewOrder(productCode string, quantity int, price int64) (*Order, error) {
 	return &Order{
 		ProductCode: productCode,
 		Quantity:    quantity,
-		Price:       price,
+		Price:       price * int64(quantity),
 		CreatedAt:   time.Now(),
 	}, nil
 }
