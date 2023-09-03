@@ -4,9 +4,6 @@ import (
 	"github.com/ozkansen/campaign-module/pkg/time"
 )
 
-// TimeNow for Campaign time manipulation
-var TimeNow = time.Now
-
 type Campaign struct {
 	Name        string
 	ProductCode string
@@ -36,6 +33,6 @@ func NewCampaign(name, productCode string, duration, priceManipulationLimit, tar
 		Duration:               duration,
 		PriceManipulationLimit: priceManipulationLimit,
 		TargetSalesCount:       targetSalesCount,
-		CreatedAt:              TimeNow(),
+		CreatedAt:              time.Now(),
 	}, nil
 }

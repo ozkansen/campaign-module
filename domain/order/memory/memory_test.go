@@ -3,9 +3,9 @@ package memory
 import (
 	"reflect"
 	"testing"
-	"time"
 
 	"github.com/ozkansen/campaign-module/domain/order"
+	"github.com/ozkansen/campaign-module/pkg/time"
 )
 
 func TestMemoryOrderRepository_Create(t *testing.T) {
@@ -41,9 +41,7 @@ func TestMemoryOrderRepository_Create(t *testing.T) {
 }
 
 func TestMemoryOrderRepository_Get(t *testing.T) {
-	order.TimeNow = func() time.Time {
-		return time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)
-	}
+	time.Set(time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC))
 	type fields struct {
 		orders map[string][]*order.Order
 	}

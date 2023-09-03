@@ -3,13 +3,13 @@ package campaign
 import (
 	"reflect"
 	"testing"
-	"time"
+
+	"github.com/ozkansen/campaign-module/pkg/time"
 )
 
 func TestNewCampaign(t *testing.T) {
-	TimeNow = func() time.Time {
-		return time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)
-	}
+	time.Set(time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC))
+
 	type args struct {
 		name                   string
 		productCode            string
@@ -26,7 +26,7 @@ func TestNewCampaign(t *testing.T) {
 		{
 			name:    "create a valid campaign object",
 			args:    args{"example", "P1", 1, 20, 10},
-			want:    &Campaign{"example", "P1", 1, 20, 10, TimeNow()},
+			want:    &Campaign{"example", "P1", 1, 20, 10, time.Now()},
 			wantErr: false,
 		},
 		{

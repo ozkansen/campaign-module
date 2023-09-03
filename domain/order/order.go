@@ -4,9 +4,6 @@ import (
 	"github.com/ozkansen/campaign-module/pkg/time"
 )
 
-// TimeNow for Order time manipulation
-var TimeNow = time.Now
-
 type Order struct {
 	ProductCode string
 	Quantity    int
@@ -22,6 +19,6 @@ func NewOrder(productCode string, quantity int, price int64) (*Order, error) {
 		ProductCode: productCode,
 		Quantity:    quantity,
 		Price:       price,
-		CreatedAt:   TimeNow(),
+		CreatedAt:   time.Now(),
 	}, nil
 }
