@@ -144,3 +144,49 @@ func TestCampaignService_Get(t *testing.T) {
 		})
 	}
 }
+
+func TestCampaignService_GetFromProductCode(t *testing.T) {
+	type fields struct {
+		campaigns campaign.Repository
+	}
+	type args struct {
+		productCode string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		want    *campaign.Campaign
+		wantErr bool
+	}{
+		{
+			name:    "get product code valid test",
+			fields:  fields{campaigns: &campaignRepositoryStubs{getFromProductCodeRetVal: &campaign.Campaign{Name: "C1"}}},
+			args:    args{productCode: "C1"},
+			want:    &campaign.Campaign{Name: "C1"},
+			wantErr: false,
+		},
+		{
+			name:    "repository error",
+			fields:  fields{campaigns: &campaignRepositoryStubs{getFromProductCodeRetErr: errors.New("error")}},
+			args:    args{productCode: "C1"},
+			want:    nil,
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cs := &CampaignService{
+				campaigns: tt.fields.campaigns,
+			}
+			got, err := cs.GetFromProductCode(tt.args.productCode)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetFromProductCode() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetFromProductCode() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
